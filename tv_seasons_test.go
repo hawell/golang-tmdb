@@ -17,7 +17,7 @@ func (suite *TMBDTestSuite) TestGetTVSeasonDetailsWithOptions() {
 	options["language"] = "pt-BR"
 	got, err := suite.client.GetTVSeasonDetails(gotID, 1, options)
 	suite.Nil(err)
-	suite.Equal("1ª Temporada", got.Name)
+	suite.Equal("Temporada 1", got.Name)
 }
 
 func (suite *TMBDTestSuite) TestGetTVSeasonChange() {
@@ -39,6 +39,18 @@ func (suite *TMBDTestSuite) TestGetTVSeasonCredits() {
 	tv, err := suite.client.GetTVSeasonCredits(gotID, 7, nil)
 	suite.Nil(err)
 	suite.NotNil(tv.ID)
+	if len(tv.Cast) > 0 {
+		suite.NotEmpty(tv.Cast[0].Name)
+		suite.NotEmpty(tv.Cast[0].OriginalName)
+		suite.NotEmpty(tv.Cast[0].KnownForDepartment)
+		suite.Greater(tv.Cast[0].Popularity, float32(0))
+	}
+	if len(tv.Crew) > 0 {
+		suite.NotEmpty(tv.Crew[0].Name)
+		suite.NotEmpty(tv.Crew[0].OriginalName)
+		suite.NotEmpty(tv.Crew[0].KnownForDepartment)
+		suite.Greater(tv.Crew[0].Popularity, float32(0))
+	}
 }
 
 func (suite *TMBDTestSuite) TestGetTVSeasonCreditsFail() {
