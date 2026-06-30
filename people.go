@@ -204,6 +204,7 @@ func (c *Client) GetPersonMovieCredits(
 // PersonTVCredits type is a struct for tv credits JSON response.
 type PersonTVCredits struct {
 	Cast []struct {
+		Adult            bool     `json:"adult"`
 		CreditID         string   `json:"credit_id"`
 		OriginalName     string   `json:"original_name"`
 		ID               int64    `json:"id"`
@@ -221,6 +222,7 @@ type PersonTVCredits struct {
 		VoteMetrics
 	} `json:"cast"`
 	Crew []struct {
+		Adult            bool     `json:"adult"`
 		ID               int64    `json:"id"`
 		Department       string   `json:"department"`
 		OriginalLanguage string   `json:"original_language"`
